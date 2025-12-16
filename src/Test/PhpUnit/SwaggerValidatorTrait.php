@@ -2,7 +2,7 @@
 
 namespace WakeOnWeb\Component\Swagger\Test\PhpUnit;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\ResponseInterface;
 use WakeOnWeb\Component\Swagger\Loader\JsonLoader;
 use WakeOnWeb\Component\Swagger\Loader\YamlLoader;
@@ -25,7 +25,7 @@ trait SwaggerValidatorTrait
      */
     public static function assertResponseMatchSpec($spec, ResponseInterface $response, $method, $path, $code)
     {
-        $factory = new SwaggerFactory(new ArrayCachePool());
+        $factory = new SwaggerFactory(app(CacheItemPoolInterface::class));
         $factory->addLoader(new YamlLoader());
         $factory->addLoader(new JsonLoader());
 

@@ -2,7 +2,6 @@
 
 namespace WakeOnWeb\Component\Swagger;
 
-use Cache\Adapter\PHPArray\ArrayCachePool;
 use Psr\Cache\CacheItemPoolInterface;
 use WakeOnWeb\Component\Swagger\Exception\ParseException;
 use WakeOnWeb\Component\Swagger\Loader\Exception\LoaderException;
@@ -58,9 +57,9 @@ class SwaggerFactory
     /**
      * @param CacheItemPoolInterface|null $cacheItemPool
      */
-    public function __construct(CacheItemPoolInterface $cacheItemPool = null)
+    public function __construct(?CacheItemPoolInterface $cacheItemPool = null)
     {
-        $this->cacheItemPool = $cacheItemPool ?: new ArrayCachePool();
+        $this->cacheItemPool = $cacheItemPool ?? app(CacheItemPoolInterface::class);
     }
 
     /**
